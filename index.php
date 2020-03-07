@@ -1,15 +1,37 @@
 <?php
 
 //define("iterCountOfFermCheck", 1000);
-do {
 
-//    $simpleNumber = mt_rand(2049, 10000000);
-    $simpleNumber = mt_rand(3, 2049);
-    $isSimple = isSimpleNumber($simpleNumber);
 
-} while (!$isSimple);
+function getSimpleNumber()
+{
 
-echo getPrimRoot(101);
+    do {
+
+//            $simpleNumber = mt_rand(2049, 10000000);
+        $simpleNumber = mt_rand(3, 2049);
+        $isSimple = _isSimpleNumber($simpleNumber);
+
+    } while (!$isSimple);
+
+    return $simpleNumber;
+
+}
+
+
+$a = mt_rand();
+$b = mt_rand();
+$p = getSimpleNumber();
+$g = getPrimRoot($p);
+
+$A = bcpowmod($g, $a, $p);
+$B = bcpowmod($g, $b, $p);
+
+$K_A = bcpowmod($B, $a, $p);
+$K_B = bcpowmod($A, $b, $p);
+
+echo "Ключ у Алисы: $K_A\nКлюч у Боба: " . $K_B . PHP_EOL;
+
 
 function _nod($a, $b)
 {
@@ -59,7 +81,7 @@ function getPrimRoot($m)//они есть, теорема гауса
 
 }
 
-function isSimpleNumber($rndNumberSimple)//пытался сделать на тесте ферма
+function _isSimpleNumber($rndNumberSimple)//пытался сделать на тесте ферма
 {
     if ($rndNumberSimple % 2 == 0)
         return false;
